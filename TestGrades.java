@@ -21,16 +21,16 @@ import java.util.*;
 public class TestGrades {
     
     /** Counts how many student objects have been created.*/
-    private static int counter = 0;
+    private int counter = 0;
     
     /** Student's first name is stored here. */
-    private static String myFirstName;
+    private String myFirstName;
     
     /** Student's last name is stored here. */
-    private static String myLastName;
+    private String myLastName;
     
     /** Scores of 4 tests are stored here. Each index does not contain null value.*/
-    private static int[] myTestScores;
+    private int[] myTestScores;
     
     /**
     * TestGrade class contains test values that will create certain values in the beginning.
@@ -41,12 +41,13 @@ public class TestGrades {
         myFirstName = theFristName;
         myLastName = theLastName;
         myTestScores = theTestScores;
+        counter++;
     }
     
     /**
     * From the int array, takes the average of the top n - 1 scores in the array.
     * Find the index with the minimum value. 
-    * @param theArray contains the test scores.
+    * @param theTestScores contains the test scores.
     * @return the average
     */
     public int getAverage(int[] theTestScores) {
