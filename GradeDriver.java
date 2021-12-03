@@ -25,14 +25,28 @@ public class GradeDriver{
         catch (FileNotFoundException e) {
           System.out.println("Error opening file: " + e);
       	}
-
-	// Fill in the operations that create, manipulate, and output the
-	// results of the TestGrades objects here
-	// Use separate methods for reading in the data,
-	// processing the data, and output
-
-
-  }
+        
+    }
+    
+    /**
+    * Method to print out the number of test average of students from a file.
+    *
+    */
+    public static TestGrades find() {
+        int count = 0;
+        int number = input.nextInt();
+        while(input.hasNextLine()) {
+            String firstName = input.next();
+            String lastName = input.next();
+            int[] scores = new int[4];
+            for (int i = 0; i < scores.length; i++) {
+                scores[i] = input.nextInt();
+            }
+            TestGrades student = new TestGrades(firstName, lastName, scores);
+            
+            count++;
+        }
+    }
     /**
     * Average of the student's grade should be stored in a separate array.
     * @requires The array size will = the first number from the input file.
