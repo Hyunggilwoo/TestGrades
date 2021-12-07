@@ -31,7 +31,7 @@ public class GradeDriver{
             input = new Scanner(new File("in4.txt"));
             output = new PrintStream(new File("out4.txt"));
             numOfStudent(input, output);
-            TestGrades student = find(input, output);
+            String studentInfo = find(input);
         }
         catch (FileNotFoundException e) {
           System.out.println("Error opening file: " + e);
@@ -44,11 +44,12 @@ public class GradeDriver{
     * Method to print out the number of test average of students from a file.
     *
     * @param theConsole scans the input file
-    * @return the TestGrade object.
+    * @return the toString() of the object.
     */
-    public static TestGrades find(Scanner theConsole, PrintStream theOutput) {
+    public static String find(Scanner theConsole) {
         int[] scores = new int[NUMBER_OF_EXAMS];
         TestGrades student = new TestGrades("", "", scores);
+        String line = "";
         while(theConsole.hasNext()) {
             String firstName = theConsole.next();
             String lastName = theConsole.next();
@@ -56,19 +57,22 @@ public class GradeDriver{
                 scores[j] = theConsole.nextInt();
             }
             student = new TestGrades(firstName, lastName, scores);
-            theOutput.println(student.toString());
+            line = student.toString();
         }
-        return student;
+        return line;
     }
 
     /**
      * Receives the selection of TestGrade objects, then print all of the students
      * that are present in the file.
-     * @param theTestGrades
-     * @param theOutput
+     * @param theOutput prints the values into an output file
+     * @param theLine is a data that is scanned.
      */
-    public static void printStudents(TestGrades theTestGrades, PrintStream theOutput) {
-
+    public static void printStudents(PrintStream theOutput, String theLine) {
+        Scanner data = new Scanner(theLine);
+        while (data.hasNextLine()) {
+            theOutput.println(data);
+        }
     }
     /**
     * Method that parses the number of student from the input file.
@@ -85,9 +89,9 @@ public class GradeDriver{
     * @requires The array size will = the first number from the input file.
     * @return a new array with the same size of an array that contains the average of each students.
     */
-    public static int[] sortAverages() {
+    //public static int[] sortAverages() {
     
-    }
+    //}
     
     
     /**
