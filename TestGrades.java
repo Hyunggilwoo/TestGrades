@@ -19,9 +19,12 @@ import java.util.*;
 */
 
 public class TestGrades {
+
+    /** Number of exams are accounted here.*/
+    public final int NUMBER_OF_EXAMS = 4;
     
-    /** Counts how many student objects have been created.*/
-    private int counter = 0;
+    /** Count of students in the constructor.*/
+    private static int myStudentCount = 0;
     
     /** Student's first name is stored here. */
     private String myFirstName;
@@ -32,6 +35,8 @@ public class TestGrades {
     /** Scores of 4 tests are stored here. Each index does not contain null value.*/
     private int[] myTestScores;
     
+
+    
     /**
     * TestGrade class contains test values that will create certain values in the beginning.
     *
@@ -41,24 +46,45 @@ public class TestGrades {
         myFirstName = theFristName;
         myLastName = theLastName;
         myTestScores = theTestScores;
-        counter++;
+        myStudentCount++;
     }
     
     /**
     * From the int array, takes the average of the top n - 1 scores in the array.
     * Find the index with the minimum value. 
     * @param theTestScores contains the test scores.
-    * @return the average
+    * @return the average of top 3 scores on the exam.
     */
-    public int getAverage(int[] theTestScores) {
+    public int getTestAverage(int[] theTestScores) {
         Arrays.sort(theTestScores);
         int number = theTestScores.length;
+        System.out.println(number);
         int total = 0;
         for (int i = 1; i < number; i++) {
             total += theTestScores[i];
         }
-        return total / number;    
+        return total / (number - 1);    
     }
+
+    /**
+    * @Requires the test number is greater 0 and less than 5.
+    * and the test score must be between 0 and 100.
+    * @param theIndex the place to set the score
+    * @param theScore the revised score.
+    */
+    public void setScore(int theIndex, int theScore) {
+        // Sets the score in the index to meet the criteria.
+        if (theIndex < 0 || theIndex > NUMBER_OF_EXAMS) {
+            throw new IllegalArgumentException("The exam number must be " +
+                                "at least 0 and less than NUMBER_OF_EXAMS.");
+        }
+        if (theScore < 0 || theScore > 100) {
+            throw new IllegalArgumentException("The exam score must be " + 
+                                                    "between 0 and 100.");
+        }
+        myTestScores[theIndex] = theScore;        
+    }
+    
     
     /**
     * Returns the first name of the TestGrades object.
@@ -77,6 +103,13 @@ public class TestGrades {
     }
     
     /**
+    *
+    *
+    */
+    public int getStudentCount() {
+        return myStudentCount;
+    }
+    /**
     * A copy of the test grades are printed.
     *
     */
@@ -93,7 +126,7 @@ public class TestGrades {
         String output = getFirstName() + " ";
         output += getLastName() + " ";
         output += Arrays.toString(getTestScores()) + " ";
-        output += "Average = " + getAverage(getTestScores());
+        output += "Average = " + getTestAverage(getTestScores());
         return output;  
     }
 }
