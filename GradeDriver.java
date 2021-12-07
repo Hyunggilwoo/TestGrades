@@ -31,7 +31,7 @@ public class GradeDriver{
             input = new Scanner(new File("in4.txt"));
             output = new PrintStream(new File("out4.txt"));
             numOfStudent(input, output);
-            find(input, output);
+            TestGrades student = find(input, output);
         }
         catch (FileNotFoundException e) {
           System.out.println("Error opening file: " + e);
@@ -39,25 +39,37 @@ public class GradeDriver{
         
     }
     
-    /**
-    * Expects the 
+    /*
+    * Constructs the TestGrades object student(firstName, lastName, scores)
     * Method to print out the number of test average of students from a file.
-    *  
-    * Post: Returns the averages of the exam to a new method.
+    *
+    * @param theConsole scans the input file
+    * @return the TestGrade object.
     */
-    public static void find(Scanner theConsole, PrintStream theOutput) {
+    public static TestGrades find(Scanner theConsole, PrintStream theOutput) {
+        int[] scores = new int[NUMBER_OF_EXAMS];
+        TestGrades student = new TestGrades("", "", scores);
         while(theConsole.hasNext()) {
             String firstName = theConsole.next();
             String lastName = theConsole.next();
-            int[] scores = new int[NUMBER_OF_EXAMS];
             for (int j = 0; j < scores.length; j++) {
                 scores[j] = theConsole.nextInt();
             }
-            TestGrades student = new TestGrades(firstName, lastName, scores);
+            student = new TestGrades(firstName, lastName, scores);
             theOutput.println(student.toString());
         }
+        return student;
     }
-    
+
+    /**
+     * Receives the selection of TestGrade objects, then print all of the students
+     * that are present in the file.
+     * @param theTestGrades
+     * @param theOutput
+     */
+    public static void printStudents(TestGrades theTestGrades, PrintStream theOutput) {
+
+    }
     /**
     * Method that parses the number of student from the input file.
     *
