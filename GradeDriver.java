@@ -30,7 +30,9 @@ public class GradeDriver{
         try {
             input = new Scanner(new File("in4.txt"));
             output = new PrintStream(new File("out4.txt"));
-            numOfStudent(input, output);
+            int number = numOfStudent(input, output);
+            TestGrades[] studentReport = new TestGrades[number];
+
             String studentInfo = find(input);
         }
         catch (FileNotFoundException e) {
@@ -39,12 +41,12 @@ public class GradeDriver{
         
     }
     
-    /*
+    /**
     * Constructs the TestGrades object student(firstName, lastName, scores)
     * Method to print out the number of test average of students from a file.
     *
     * @param theConsole scans the input file
-    * @return the toString() of the object.
+    * @return the toString() of the TestGrades.
     */
     public static String find(Scanner theConsole) {
         int[] scores = new int[NUMBER_OF_EXAMS];
@@ -74,6 +76,7 @@ public class GradeDriver{
             theOutput.println(data);
         }
     }
+
     /**
     * Method that parses the number of student from the input file.
     *
