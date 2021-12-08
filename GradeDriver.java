@@ -78,8 +78,7 @@ public class GradeDriver{
      * @return TestGrade object.
      */
     public static TestGrades addGrades (String theFirstName, String theLastName, int[] theScores) {
-        TestGrades student = new TestGrades(theFirstName, theLastName, theScores);
-        return student;
+        return new TestGrades(theFirstName, theLastName, theScores);
 
     }
 
