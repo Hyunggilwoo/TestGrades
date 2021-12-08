@@ -45,29 +45,39 @@ public class GradeDriver{
      * Method to print out the number of test average of students from a file.
      *
      * @param theConsole scans the input file
-     * @return the toString() of the TestGrades.
+     * @return the array of of student information in the array.
      */
     public static TestGrades[] find(Scanner theConsole, int theNumber) {
-        int[] scores = new int[NUMBER_OF_EXAMS];
         TestGrades[] studentReport = new TestGrades[theNumber];
         int count = 0;
-        while(theConsole.hasNext()) {
-            String firstName = theConsole.next();
-            String lastName = theConsole.next();
+        // prints toString() of a student
+        while(theConsole.hasNext()) { // 
+            String firstName = theConsole.next(); // {Sally}
+            String lastName = theConsole.next();  // {Soso}
             // somehow the every test scores are based on the last student's. error.
+            int[] scores = new int[NUMBER_OF_EXAMS];
             for (int j = 0; j < scores.length; j++) {
-                scores[j] = theConsole.nextInt();
-                //System.out.println(scores[j]);
+                scores[j] = theConsole.nextInt(); // { [78, 67, 72, 75]} 
             }
-            // iterate through the array with a counter works, but....
-            studentReport[count] = new TestGrades(firstName, lastName, scores);
-            System.out.println(studentReport[count].toString());
+            // Sally Soso [78, 67, 72, 75] Average ...
+            studentReport[count] = addGrades(firstName, lastName, scores);
             count++;
         }
-        
         return studentReport;
     }
 
+    /**
+     * Helper method to add the names and the score into an array of the students.
+     * @param theFirstName
+     * @param theLastName
+     * @param theScores
+     * @return
+     */
+    public static TestGrades addGrades (String theFirstName, String theLastName, int[] theScores) {
+        TestGrades student = new TestGrades(theFirstName, theLastName, theScores);
+        return student;
+
+    }
 
     /**
      * Receives the selection of TestGrade objects, then print all of the students
@@ -78,7 +88,6 @@ public class GradeDriver{
     public static void printStudents(PrintStream theOutput, TestGrades[] theReport) {
         for (int i = 0; i < theReport.length; i++) {
             theOutput.println(theReport[i].toString());
-            System.out.println(theReport[i].toString());
         }
     }
 
@@ -99,8 +108,13 @@ public class GradeDriver{
     * @return a new array with the same size of an array that contains the average of each students.
     */
     //public static int[] sortAverages() {
-    
-    //}
+    public static double mean(int[] a) {
+        double sum = a[0];
+        for (int i = 1; i < a.length; i++) {
+            sum += a[i];
+        }
+        return 1.0 * sum / a.length;
+    }
     
     
     /**
@@ -109,7 +123,15 @@ public class GradeDriver{
     * @param theArray contains the average test scores for the individual.
     * @return the highest average from the list.
     */
-    
+    public static int max(int[] a) {
+        int mx = a[0];
+        for (int i = 1; i < a.length; i++) {
+            if (a[i] > mx) {
+                mx = a[i];
+            }
+        }
+        return mx;
+    }
     
     
     /**
@@ -118,7 +140,15 @@ public class GradeDriver{
     * @param theArray contains the average test scores for the individual.
     * @return the highest average from the list. 
     */
-    
+    public static int min(int[] a) {
+        int mn = a[0];
+        for (int i = 1; i < a.length; i++) {
+            if (a[i] < mn) {
+                mn = a[i];
+            }
+        }
+        return mn;
+    }    
     
     /**
     * Inside an array, computes the average of the testcores inside the array.
