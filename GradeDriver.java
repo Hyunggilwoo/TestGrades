@@ -20,8 +20,7 @@ public class GradeDriver{
      * // Method ignores the number of data entry from the first line.
      * Creates the TestGrades class from the main driver.
      *
-     * I don't enjoy this input file. Can I just reorganize the input file into a 
-     * way that I want?
+     *
      *
      */
 	public static void main(String[] theArgs){
@@ -33,7 +32,7 @@ public class GradeDriver{
             int number = numOfStudent(input, output);
             TestGrades[] studentReport = new TestGrades[number];
 
-            String studentInfo = find(input);
+            printStudents(output, studentReport);
         }
         catch (FileNotFoundException e) {
           System.out.println("Error opening file: " + e);
@@ -42,15 +41,17 @@ public class GradeDriver{
     }
     
     /**
-    * Constructs the TestGrades object student(firstName, lastName, scores)
-    * Method to print out the number of test average of students from a file.
+    * Constructs the array of TestGrades object student(firstName, lastName, scores)
+    * 
     *
     * @param theConsole scans the input file
-    * @return the toString() of the TestGrades.
+    * @return the student info.
     */
-    public static String find(Scanner theConsole) {
+    public static TestGrades find(Scanner theConsole, int theNumber) {
+
         int[] scores = new int[NUMBER_OF_EXAMS];
         TestGrades student = new TestGrades("", "", scores);
+        //TestGrades[] studentReport = new TestGrades[theNumber];
         String line = "";
         while(theConsole.hasNext()) {
             String firstName = theConsole.next();
@@ -58,22 +59,23 @@ public class GradeDriver{
             for (int j = 0; j < scores.length; j++) {
                 scores[j] = theConsole.nextInt();
             }
-            student = new TestGrades(firstName, lastName, scores);
-            line = student.toString();
+          //  for (int i = 0; i < theNumber; i++) {
+          //      studentReport[i] = student(firstName, lastName, scores);
+            //}
         }
-        return line;
+        return student;
     }
+
 
     /**
      * Receives the selection of TestGrade objects, then print all of the students
      * that are present in the file.
      * @param theOutput prints the values into an output file
-     * @param theLine is a data that is scanned.
+     * @param theStudent is a data that is scanned.
      */
-    public static void printStudents(PrintStream theOutput, String theLine) {
-        Scanner data = new Scanner(theLine);
-        while (data.hasNextLine()) {
-            theOutput.println(data);
+    public static void printStudents(PrintStream theOutput, TestGrades[] theStudent) {
+        for (int i = 0; i < theStudent.length; i++) {
+            theOutput.println(theStudent[i].toString());
         }
     }
 
