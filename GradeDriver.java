@@ -5,6 +5,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Scanner;
 /**
  * Add appropriate documentation here
@@ -30,14 +31,17 @@ public class GradeDriver{
             input = new Scanner(new File("in4.txt"));
             output = new PrintStream(new File("out4.txt"));
             int number = numOfStudent(input, output);
-            TestGrades[] studentReport = find(input, number); // needs instatiation from a method
-
+            TestGrades[] studentReport = find(input, number);
             printStudents(output, studentReport);
+            int[] testAverages = generateArray(studentReport);
+            output.println();
+            output.println("Highest Student Average = " + max(testAverages));
+            output.println("Lowest Student Average = " + min(testAverages));
+            output.println("Overall Class Average = " + overallAverage(testAverages));
         }
         catch (FileNotFoundException e) {
             System.out.println("Error opening file: " + e);
         }
-
     }
 
     /**
@@ -91,7 +95,6 @@ public class GradeDriver{
         }
     }
 
-
     /**
     * Method that parses the number of student from the input file.
     *
@@ -101,60 +104,57 @@ public class GradeDriver{
         theOutput.println("Total number of students: " + numOfStudent);
         return numOfStudent;
     }
-    
+
     /**
-    * Average of the student's grade should be stored in a separate array.
-    * @requires The array size will = the first number from the input file.
-    * @return a new array with the same size of an array that contains the average of each students.
-    */
-    //public static int[] sortAverages() {
-    public static double mean(int[] a) {
-        double sum = a[0];
-        for (int i = 1; i < a.length; i++) {
-            sum += a[i];
+     * Generates an array of only the test averages in a sorted way
+     * in an ascending order.
+     * @param theStudent Array of Students.
+     * @return the averages of the test score.
+     */
+    public static int[] generateArray(TestGrades[] theStudent) {
+        int[] averages = new int[theStudent.length];
+        for (int i = 0; i < theStudent.length; i++) {
+            averages[i] = theStudent[i].getTestAverage(theStudent[i].getTestScores());
         }
-        return 1.0 * sum / a.length;
+        Arrays.sort(averages);
+        return averages;
     }
-    
     
     /**
     * Inside an array, finds the index of the array that has the highest value.
     * 
-    * @param theArray contains the average test scores for the individual.
+    * @param theTestAverages contains the average test scores for the individual.
     * @return the highest average from the list.
     */
-    public static int max(int[] a) {
-        int mx = a[0];
-        for (int i = 1; i < a.length; i++) {
-            if (a[i] > mx) {
-                mx = a[i];
-            }
-        }
-        return mx;
+    public static int max(int[] theTestAverages) {
+        int size = theTestAverages.length - 1;
+        return theTestAverages[size];
     }
     
     
     /**
     * Inside an array, finds the index with the lowest value.
     * if (int[i] < low) { low = int[i] 
-    * @param theArray contains the average test scores for the individual.
+    * @param theTestAverages contains the average test scores for the individual.
     * @return the highest average from the list. 
     */
-    public static int min(int[] a) {
-        int mn = a[0];
-        for (int i = 1; i < a.length; i++) {
-            if (a[i] < mn) {
-                mn = a[i];
-            }
-        }
-        return mn;
+    public static int min(int[] theTestAverages) {
+        int size = 0;
+        return theTestAverages[size];
     }    
     
     /**
-    * Inside an array, computes the average of the testcores inside the array.
+    * Computes the average of the testcores inside the array.
     * (int[0]+int[1]+...int[n-2]+int[n-1]) / n
-    * @param theArray The average testscores
-    * @return the 
+    * @param theTestAverages The average testscores
+    * @return overall average test scores for the group of students.
     */
-
+    public static int overallAverage(int[] theTestAverages) {
+        int number = theTestAverages.length;
+        int sum = 0;
+        for (int i = 0; i < number; i++) {
+            sum += theTestAverages[i];
+        }
+        return sum / number;
+    }
 }
