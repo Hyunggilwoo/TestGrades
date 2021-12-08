@@ -72,10 +72,10 @@ public class GradeDriver{
 
     /**
      * Helper method to add the names and the score into an array of the students.
-     * @param theFirstName
-     * @param theLastName
-     * @param theScores
-     * @return
+     * @param theFirstName of a student.
+     * @param theLastName of a student.
+     * @param theScores on tests.
+     * @return TestGrade object.
      */
     public static TestGrades addGrades (String theFirstName, String theLastName, int[] theScores) {
         TestGrades student = new TestGrades(theFirstName, theLastName, theScores);
@@ -90,8 +90,8 @@ public class GradeDriver{
      * @param theReport is a data that is scanned.
      */
     public static void printStudents(PrintStream theOutput, TestGrades[] theReport) {
-        for (int i = 0; i < theReport.length; i++) {
-            theOutput.println(theReport[i].toString());
+        for (TestGrades testGrades : theReport) {
+            theOutput.println(testGrades.toString());
         }
     }
 
@@ -107,7 +107,7 @@ public class GradeDriver{
 
     /**
      * Generates an array of only the test averages in a sorted way
-     * in an ascending order.
+     * in ascending order.
      * @param theStudent Array of Students.
      * @return the averages of the test score.
      */
@@ -152,8 +152,8 @@ public class GradeDriver{
     public static int overallAverage(int[] theTestAverages) {
         int number = theTestAverages.length;
         int sum = 0;
-        for (int i = 0; i < number; i++) {
-            sum += theTestAverages[i];
+        for (int theTestAverage : theTestAverages) {
+            sum += theTestAverage;
         }
         return sum / number;
     }
