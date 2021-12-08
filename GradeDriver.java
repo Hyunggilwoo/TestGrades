@@ -30,7 +30,7 @@ public class GradeDriver{
             input = new Scanner(new File("in4.txt"));
             output = new PrintStream(new File("out4.txt"));
             int number = numOfStudent(input, output);
-            TestGrades[] studentReport = new TestGrades[number];
+            TestGrades[] studentReport = find(input, number); // needs instatiation from a method
 
             printStudents(output, studentReport);
         }
@@ -39,31 +39,30 @@ public class GradeDriver{
       	}
         
     }
-    
-    /**
-    * Constructs the array of TestGrades object student(firstName, lastName, scores)
-    * 
-    *
-    * @param theConsole scans the input file
-    * @return the student info.
-    */
-    public static TestGrades find(Scanner theConsole, int theNumber) {
 
+    /**
+     * Constructs the TestGrades object student(firstName, lastName, scores)
+     * Method to print out the number of test average of students from a file.
+     *
+     * @param theConsole scans the input file
+     * @return the toString() of the TestGrades.
+     */
+    public static TestGrades[] find(Scanner theConsole, int theNumber) {
         int[] scores = new int[NUMBER_OF_EXAMS];
-        TestGrades student = new TestGrades("", "", scores);
-        //TestGrades[] studentReport = new TestGrades[theNumber];
-        String line = "";
+        TestGrades[] studentReport = new TestGrades[theNumber];
+        //TestGrades student = new TestGrades("", "", scores);
+        int count = 0;
         while(theConsole.hasNext()) {
             String firstName = theConsole.next();
             String lastName = theConsole.next();
             for (int j = 0; j < scores.length; j++) {
                 scores[j] = theConsole.nextInt();
             }
-          //  for (int i = 0; i < theNumber; i++) {
-          //      studentReport[i] = student(firstName, lastName, scores);
-            //}
+            // iterate through the array with a counter
+            studentReport[count] = new TestGrades(firstName, lastName, scores);
+            count++;
         }
-        return student;
+        return studentReport;
     }
 
 
@@ -71,11 +70,11 @@ public class GradeDriver{
      * Receives the selection of TestGrade objects, then print all of the students
      * that are present in the file.
      * @param theOutput prints the values into an output file
-     * @param theStudent is a data that is scanned.
+     * @param theReport is a data that is scanned.
      */
-    public static void printStudents(PrintStream theOutput, TestGrades[] theStudent) {
-        for (int i = 0; i < theStudent.length; i++) {
-            theOutput.println(theStudent[i].toString());
+    public static void printStudents(PrintStream theOutput, TestGrades[] theReport) {
+        for (int i = 0; i < theReport.length; i++) {
+            theOutput.println(theReport[i].toString());
         }
     }
 
