@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  */
 public class GradeDriver{
-    
+
     public static final int NUMBER_OF_EXAMS = 4;
 
     /**
@@ -23,9 +23,9 @@ public class GradeDriver{
      *
      *
      */
-	public static void main(String[] theArgs){
-      	Scanner input = null;
-      	PrintStream output = null;
+    public static void main(String[] theArgs){
+        Scanner input = null;
+        PrintStream output = null;
         try {
             input = new Scanner(new File("in4.txt"));
             output = new PrintStream(new File("out4.txt"));
@@ -35,9 +35,9 @@ public class GradeDriver{
             printStudents(output, studentReport);
         }
         catch (FileNotFoundException e) {
-          System.out.println("Error opening file: " + e);
-      	}
-        
+            System.out.println("Error opening file: " + e);
+        }
+
     }
 
     /**
@@ -50,18 +50,21 @@ public class GradeDriver{
     public static TestGrades[] find(Scanner theConsole, int theNumber) {
         int[] scores = new int[NUMBER_OF_EXAMS];
         TestGrades[] studentReport = new TestGrades[theNumber];
-        //TestGrades student = new TestGrades("", "", scores);
         int count = 0;
         while(theConsole.hasNext()) {
             String firstName = theConsole.next();
             String lastName = theConsole.next();
+            // somehow the every test scores are based on the last student's. error.
             for (int j = 0; j < scores.length; j++) {
                 scores[j] = theConsole.nextInt();
+                //System.out.println(scores[j]);
             }
-            // iterate through the array with a counter
+            // iterate through the array with a counter works, but....
             studentReport[count] = new TestGrades(firstName, lastName, scores);
+            System.out.println(studentReport[count].toString());
             count++;
         }
+        
         return studentReport;
     }
 
@@ -75,8 +78,10 @@ public class GradeDriver{
     public static void printStudents(PrintStream theOutput, TestGrades[] theReport) {
         for (int i = 0; i < theReport.length; i++) {
             theOutput.println(theReport[i].toString());
+            System.out.println(theReport[i].toString());
         }
     }
+
 
     /**
     * Method that parses the number of student from the input file.
